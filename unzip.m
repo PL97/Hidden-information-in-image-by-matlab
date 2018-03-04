@@ -1,6 +1,6 @@
 clear all; %清除所有变量
 clc ;      %清屏
-path = 'C:\Users\admin\Desktop\matlab\homework1\result.jpg';
+path = 'result.jpg';
 I=imread(path);%读入RGB图像
 subplot(131);
 imshow(I);

@@ -1,8 +1,8 @@
 close all ;%关闭所有文件
 clear all ;%清除所有变量
 clc ;      %清屏
-path = 'C:\Users\admin\Desktop\matlab\homework1\test.bmp';
-destinationImagePath = 'C:\Users\admin\Desktop\matlab\homework1\zipedData.mat';
+path = 'test.bmp';
+destinationImagePath = 'zipedData.mat';
 hidePath = 'info.png'
 I=imread(path);%读入RGB图像
 subplot(2, 3, 1);

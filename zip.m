@@ -1,14 +1,15 @@
 close all ;%关闭所有文件
 clear all ;%清除所有变量
 clc ;      %清屏
-path = 'test.bmp';
+path = 'test2.bmp';
 destinationImagePath = 'zipedData.mat';
 hidePath = 'info.png'
 I=imread(path);%读入RGB图像
 subplot(2, 3, 1);
 imshow(I);
-title('origional')
-I = int16(I) - 128;
+title('origional');
+%GR=rgb2gray(I);%转换成灰度图像
+I = int16(I) -128;
 
 %% devide into several 8*8 blocks
 len = length(I(:, 1, 1));
@@ -19,6 +20,7 @@ I(1:lenLeft, :, :) = [];
 I(:, 1:widLeft, :) = [];
 W = fix(wid/8);
 H = fix(len/8);
+D = length(I(1, 1, :));
 blocks = cell(H, W, 3);
 for i = 1:H
     for j = 1:W
@@ -43,7 +45,7 @@ S = [
 
 for i = 1:H
     for j = 1:W
-        for k = 1:3
+        for k = 1:D
             %DTC变换
             blocks{i, j, k} = dct2(blocks{i, j, k});
             %量化

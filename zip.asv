@@ -66,10 +66,10 @@ for i = 1:H
 end
 %subplot(132);
 %imshow(result);
-[message, h, w, d] = decompose(hidePath);
+message = decompose(hidePath);
 I = hide(result, message);
 x = reveal(I, length(message));
-hiddenInfor = compose(message, h, w, d);
+hiddenInfor = compose(x, h, w, d);
 
 %imwrite(result,destinationImagePath);
 dlmwrite('test.txt', result); 

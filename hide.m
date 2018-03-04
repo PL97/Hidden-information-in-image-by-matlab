@@ -17,7 +17,8 @@ function I = hide(I, y)
             break;
         end
         if I(i, j, k) == 0
-            temp = updatesub(i, j, k, restriction);
+            [i, j, k] = updatesub(i, j, k, restriction);
+            continue;
         end
         %如果插入为0时
         if y(count) == 0

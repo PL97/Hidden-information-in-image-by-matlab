@@ -5,8 +5,9 @@ path = 'C:\Users\admin\Desktop\matlab\homework1\test.bmp';
 destinationImagePath = 'C:\Users\admin\Desktop\matlab\homework1\zipedData.mat';
 hidePath = 'info.png'
 I=imread(path);%∂¡»ÎRGBÕºœÒ
-%subplot(131);
-%imshow(I);
+subplot(2, 3, 1);
+imshow(I);
+title('origional')
 I = int16(I) - 128;
 
 %% devide into several 8*8 blocks
@@ -64,11 +65,17 @@ for i = 1:H
         end
     end
 end
-%subplot(132);
-%imshow(result);
+subplot(2, 3, 2);
+imshow(result);
+title('zip');
 [message, h, w, d] = decompose(hidePath);
+subplot(2, 3, 4);
+imshow(imread(hidePath));
+title('hidden image-origional');
+%message = [1, 1, 0, 0, 1];
 I = hide(result, message);
 x = reveal(I, length(message));
+%disp(x);
 hiddenInfor = compose(message, h, w, d);
 
 %imwrite(result,destinationImagePath);
@@ -99,9 +106,12 @@ for i = 1:H
     end
 end
 %
-%subplot(133);
-%imshow(result);
+subplot(2, 3, 3);
+imshow(result);
+title('unzip');
 hold on
+subplot(2, 3, 5);
 imshow(hiddenInfor);
+title('hidden image-reveal');
 hold off
 disp(hiddenInfor);

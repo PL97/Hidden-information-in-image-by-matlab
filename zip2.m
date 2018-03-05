@@ -37,11 +37,10 @@ I2 = blkproc(I2, [8 8], fun1);
 I3 = blkproc(I3, [8 8], fun1); 
 
 %%
-[message, h, w, d] = decompose(hidePath);
-I1 = hide(I1, message);
-x = reveal(I1, length(message));
-hiddenInfor = compose(message, h, w, d);
+[I1, len, h, w, d] = hideImage(I1, hidePath);
+hiddenInfor = revealImage(I1, len, h, w, d);
 figure(2); imshow(hiddenInfor);
+
 
 %%
 %DCTÄæ±ä»»

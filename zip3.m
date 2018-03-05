@@ -31,10 +31,8 @@ I = blkproc(I, [8 8], fun1);
 figure(), imshow(log(abs(I)),[]),title('DCT±ä»»&Á¿»¯'), colormap(gray(4)), colorbar;
 
 %%
-[message, h, w, d] = decompose(hidePath);
-I = hide(I, message);
-x = reveal(I, length(message));
-hiddenInfor = compose(message, h, w, d);
+[I, len, h, w, d] = hideImage(I, hidePath);
+hiddenInfor = revealImage(I, len, h, w, d);
 figure(2); imshow(hiddenInfor);
 
 %%

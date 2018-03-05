@@ -22,12 +22,16 @@ function I = hide(I, y)
         end
         %如果插入为0时
         if y(count) == 0
-            while I(i, j, k) == 1 || I(i, j, k) == -1
+            while I(i, j, k) == 1 || I(i, j, k) == -1 || I(i, j, k) == 0
                 I(i, j, k) = 0;
                 [i, j, k] = updatesub(i, j, k, restriction);
             end
             if mod(I(i, j, k), 2) ~= 0
-                I(i, j, k) = I(i, j, k) - 1;
+                if I(i, j, k) < 0
+                    I(i, j, k) = I(i, j, k) + 1;
+                else
+                    I(i, j, k) = I(i, j, k) - 1;
+                end
             end
         else
             if mod(I(i, j, k), 2) == 0

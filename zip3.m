@@ -2,6 +2,8 @@ close all;  clc ;
 path = 'test2.bmp';
 hidePath = 'info.png';
 I=imread(path);%读入RGB图像
+I=rgb2gray(I);%转换成灰度图像
+figure(),imshow(I),title('原输入彩色图像转化为灰度图像');
 
 len = length(I(:, 1, 1));
 wid = length(I(1, :, 1));
@@ -10,15 +12,8 @@ widLeft = mod(wid, 8);
 I(1:lenLeft, :, :) = [];
 I(:, 1:widLeft, :) = [];
 
-I1 = I(:, :, 1);
-I2 = I(:, :, 2);
-I3 = I(:, :, 3);
-figure(),imshow(I),title('原输入彩色图像');
-
 fun = @(x) dct2(x);
-I1 = blkproc(I1, [8 8], fun);   
-I2 = blkproc(I2, [8 8], fun);   
-I3 = blkproc(I3, [8 8], fun);   
+I = blkproc(I, [8 8], fun);   
 
 %DCT & 量化
 S = [
@@ -32,29 +27,23 @@ S = [
 72,	92,	95,	98,	112	,100, 103, 99
 ];
 fun1 = @(x) fix(x./S);
-I1 = blkproc(I1, [8 8], fun1); 
-I2 = blkproc(I2, [8 8], fun1); 
-I3 = blkproc(I3, [8 8], fun1); 
+I = blkproc(I, [8 8], fun1); 
+figure(), imshow(log(abs(I)),[]),title('DCT变换&量化'), colormap(gray(4)), colorbar;
 
 %%
 [message, h, w, d] = decompose(hidePath);
-I1 = hide(I1, message);
-x = reveal(I1, length(message));
+I = hide(I, message);
+x = reveal(I, length(message));
 hiddenInfor = compose(message, h, w, d);
 figure(2); imshow(hiddenInfor);
 
 %%
 %DCT逆变换
 fun2 = @(x)x.*S;
-I1 = blkproc(I1, [8 8], fun2); 
-I2 = blkproc(I2, [8 8], fun2); 
-I3 = blkproc(I3, [8 8], fun2); 
+I = blkproc(I, [8 8], fun2); 
 
-fun = @(x) idct2(x);
-I1 = blkproc(I1, [8 8], fun);    
-I2 = blkproc(I2, [8 8], fun);  
-I3 = blkproc(I3, [8 8], fun);  
-I(:, :, 1) = I1;
-I(:, :, 2) = I2;
-I(:, :, 3) = I3;
-figure(), imshow(I), title('压缩后解析后图像');  
+fun = @(x) idct2(x)/255;
+I = blkproc(I, [8 8], fun);     
+figure(), imshow(I), title('经过DCT变换，然后逆变换的灰度图像');  
+
+

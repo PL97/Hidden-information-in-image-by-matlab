@@ -36,6 +36,11 @@ hiddenInfor = revealImage(I, len, h, w, d);
 figure(2); imshow(hiddenInfor);
 
 %%
+%coding
+h = length(I(:, 1)); w = length(I(1,:));
+[I, map] = coding(I);
+I = decoding(I, map, h, w);
+%%
 %DCTÄæ±ä»»
 fun2 = @(x)x.*S;
 I = blkproc(I, [8 8], fun2); 

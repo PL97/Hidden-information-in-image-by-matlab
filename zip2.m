@@ -9,6 +9,8 @@ lenLeft = mod(len, 8);
 widLeft = mod(wid, 8);
 I(1:lenLeft, :, :) = [];
 I(:, 1:widLeft, :) = [];
+h = len -lenLeft;
+w = wid - widLeft;
 
 I1 = I(:, :, 1);
 I2 = I(:, :, 2);
@@ -36,9 +38,24 @@ I1 = blkproc(I1, [8 8], fun1);
 I2 = blkproc(I2, [8 8], fun1); 
 I3 = blkproc(I3, [8 8], fun1); 
 
+
+%Òþ²ØÍ¼Æ¬S
+[I1, len, h1, w1, d] = hideImage(I1, hidePath);
+hiddenInfor = revealImage(I1, len, h1, w1, d);
+
+
 %%
-[I1, len, h, w, d] = hideImage(I1, hidePath);
-hiddenInfor = revealImage(I1, len, h, w, d);
+%coding
+[I1, map1] = coding(I1);
+[I2, map2] = coding(I2);
+[I3, map3] = coding(I3);
+
+%decode
+I1 = decoding(I1, map1, h, w);
+I2 = decoding(I2, map2, h, w);
+I3 = decoding(I3, map3, h, w);
+
+hiddenInfor = revealImage(I1, len, h1, w1, d);
 figure(2); imshow(hiddenInfor);
 
 

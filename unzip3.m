@@ -18,6 +18,7 @@ load('savedw', 'w');
 load('savedh1', 'h1');
 load('savedw1', 'w1');
 load('savedlen','len');
+load('savedd', 'd');
 %%
 %解码并将信息提取出来
 I = decoding(I, map, h, w);

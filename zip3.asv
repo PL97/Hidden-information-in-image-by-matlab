@@ -35,6 +35,8 @@ figure(2), imshow(log(abs(I)),[]),title('DCT变换&量化'), colormap(gray(4)), colo
 %隐藏图片S，返回隐藏后的I，隐藏信息长度，隐藏图片分辨率，以及d（对于RGBd = 3，灰度为1）
 [I, len, h1, w1, d] = hideImage(I, hidePath);
 
+
+
 %%
 %coding 哈夫曼编码，I是编码之后的数据，map是编码对应的映射
 h = length(I(:, 1)); w = length(I(1,:));
